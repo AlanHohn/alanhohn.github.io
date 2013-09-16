@@ -10,6 +10,8 @@ layout: none
 <link rel="alternate" type="text/html" href="{{ site.url }}" />
 <updated>{{ site.time | date_to_xmlschema }}</updated>
 <id>{{ site.url }}/</id>
+<icon>{{ site.url }}/favicon.ico</icon>
+<logo>{{ site.url }}/images/avatar.png</logo>
 <author>
   <name>{{ site.owner.name }}</name>
   <uri>{{ site.url }}/</uri>
