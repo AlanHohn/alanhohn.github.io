@@ -1,0 +1,35 @@
+title:            Variegated
+tagline:          Mostly Java
+description:      A collection of articles on programming, without an overall theme if I can help it.
+url: http://alanhohn.github.io
+
+owner:
+  name:           Alan Hohn
+  avatar:         avatar.png
+  bio:            "Software Architect at Lockheed Martin"
+  linkedin:       pub/alan-hohn/27/b35/5a3
+  github:         alanhohn       
+
+links:
+  - title: About
+    url: /about
+
+timezone:    America/Chicago
+future:      true
+pygments:    true
+markdown:    kramdown
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: false
+
+  coderay:
+    coderay_line_numbers: 
+    coderay_line_numbers_start: 1
+    coderay_tab_width: 4
+    coderay_bold_every: 10
+    coderay_css: class
+
