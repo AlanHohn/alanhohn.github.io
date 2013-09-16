@@ -102,7 +102,7 @@ too.
 
 [maven]:http://www.mkyong.com/maven/how-to-create-a-web-application-project-with-maven
 [ssl]:http://raymondhlee.wordpress.com/2012/07/28/using-spring-resttemplate-to-consume-restful-webservice
-[webapp]:
+[webapp]:https://github.com/AlanHohn/webmvc
 [jackson]:http://jackson.codehaus.org/
 [resttemplate]:http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/client/RestTemplate.html
 [gapi]:https://developers.google.com/api-client-library/python/guide/aaa_apikeys
