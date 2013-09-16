@@ -6,7 +6,7 @@ category: articles
 tags: [java, spring, webmvc, rest]
 ---
 
-While giving a series of presentations on using Java in a distributed environment,
+While giving a series of presentations on using Java in a distributed environment
 (focusing on Java EE and Spring), I got a lot of interest in web programming. I
 did an extra presentation on servlets, but I didn't want to leave it there, because
 writing Java servlets directly is not very efficient compared to tools like Spring
@@ -77,16 +77,73 @@ What comes back from Google's servers looks in part like this:
       },
 {% endhighlight %}
 
-You can see that I've explicitly provided the template with a message converter
-using [Jackson][]. In a future post I'll talk about the registration happening
-automatically as part of Spring's annotation-driven detection of REST endpoints.
-The JSON response that comes back from Google's servers is converted by Jackson
-into a `PlaceResponse` instance. The `PlaceResponse` class and its helper classes
-are shown in the [webapp][]. What's nice is that the classes are just POJOs,
-though the names are a little wierd to match the JSON as this avoids some
-Jackson annotations.
+You can see in the Java code that I've explicitly provided the template with a
+message converter using [Jackson][]. In a future post I'll talk about the
+registration happening automatically as part of Spring's annotation-driven
+detection of REST endpoints.  The JSON response that comes back from Google's
+servers is converted by Jackson into a `PlaceResponse` instance. The
+`PlaceResponse` class is below; its helper classes are shown in the [webapp][].
+What's nice is that the classes are just POJOs, though the names are a little
+odd to match the JSON as this avoids some Jackson annotations.
 
-There's a lot more in the JSON than I bothered to put into the Java classes, but
+{% highlight java linenos %}
+package org.anvard.webmvc.googleplaces;
+
+import java.util.List;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class PlaceResponse {
+
+    private List<String> html_attributions;
+    private List<Place> results;
+    private String status;
+    
+    public List<String> getHtml_attributions() {
+        return html_attributions;
+    }
+    
+    public void setHtml_attributions(List<String> html_attributions) {
+        this.html_attributions = html_attributions;
+    }
+
+    public List<Place> getResults() {
+        return results;
+    }
+    
+    public void setResults(List<Place> results) {
+        this.results = results;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Status: " + status + "\n");
+        if (null != html_attributions) {
+            sb.append("Attributions:\n");
+            for (String attr: html_attributions) {
+                sb.append("  " + attr + "\n");
+            }
+        }
+        if (null != results) {
+            sb.append("Places:\n");
+            for (Place place: results) {
+                sb.append(place.toString() + "\n");
+            }
+        }
+        return sb.toString();
+    }
+}
+{% endhighlight %}
+
+There's more in the JSON than I bothered to put into the Java classes, but
 the Jackson annotation `@JsonIgnoreProperties(ignoreUnknown = true)` on the
 class tells Jackson not to get worked up about that.
 
