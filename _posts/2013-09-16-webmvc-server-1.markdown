@@ -13,9 +13,11 @@ Java application. In that case it isn't always possible to turn the
 application into a WAR or EAR and adding a servlet container as a
 separate process just adds a layer of complexity.
 
-Looking around, I didn't see a good example that brought all the pieces
+At the time, I didn't see a good example that brought all the pieces
 together for a standalone Java application that exposes REST interfaces
-using Spring WebMVC. So I put together a [small example][webapp].
+using Spring WebMVC. So I put together a [small example][webapp]. If
+I'd looked harder, I would have found one, but now I've written it
+and get to share it.
 
 Even though the example is small, there are a number of moving parts, and
 I want to do them justice. So I'm going to start by discussing the Spring
@@ -26,12 +28,16 @@ required to actually make a WAR, but then run it as a standalone Java
 application. I've always thought that to be one of the coolest things about
 [Jenkins][] and I think it's a useful technique in general.
 
-To begin, in order to make a webapp, we'll add a web.xml file. We're using
-Maven, so it goes in `src/main/webapp/WEB-INF`.
+To begin, in order to make a webapp, we'll add a web.xml file. With Servlet
+3.0 we could avoid having a web.xml, but it's nice to have one as it keeps
+us compatible with Servlet 2.x. We're using Maven, so it goes in 
+`src/main/webapp/WEB-INF`.
 
 {% highlight xml %}
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!DOCTYPE web-app PUBLIC 
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+ "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
 
   <display-name>REST API</display-name>
@@ -62,13 +68,13 @@ To do this we need a file called `rest-servlet.xml`:
 {% highlight xml %}
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns:context="http://www.springframework.org/schema/context"
-xmlns:mvc="http://www.springframework.org/schema/mvc"
-xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <context:component-scan base-package="org.anvard.webmvc.server"/>
     <mvc:annotation-driven/>
@@ -117,9 +123,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class Calculator {
 
-    @RequestMapping(value = "/calc/{op}/{left}/{right}", method = RequestMethod.GET)
+    @RequestMapping(value = "/calc/{op}/{left}/{right}", 
+                    method = RequestMethod.GET)
     @ResponseBody
-    public Calculation calculate(@PathVariable("op") String op, @PathVariable("left") Integer left,
+    public Calculation calculate(@PathVariable("op") String op, 
+            @PathVariable("left") Integer left,
             @PathVariable("right") Integer right) {
         Assert.notNull(op);
         Assert.notNull(left);
@@ -166,8 +174,8 @@ I want to finish with the point that this is a complete example of a
 Spring WebMVC REST application. We could build a WAR with these three files
 (and the Spring dependencies) and it would deploy to a servlet container
 and expose REST interfaces. With the right dependencies, this example
-will return XML or JSON to a client, depending on the `Content-Type`
-the client requested.
+will return XML or JSON to a client, depending on what the client 
+requested.
 
 [webapp]:https://github.com/AlanHohn/webmvc
 [springref]:http://docs.spring.io/spring/docs/2.5.6/reference/mvc.html#mvc-annotation

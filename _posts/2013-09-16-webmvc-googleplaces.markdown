@@ -33,18 +33,25 @@ application context for this example, because it's too simple for that. So the
 Java code just looks like this:
 
 {% highlight java lineno %}
-    private static final String URL = "https://maps.googleapis.com/maps/api/place/search/json?location={location}&radius=1000&types=food&sensor=false&key={key}";
-    private static final String LOCATION = "39.016249,-77.122993";
+private static final String URL = 
+  "https://maps.googleapis.com/maps/api/place/search/json?location={location}&radius=1000&types=food&sensor=false&key={key}";
+private static final String LOCATION = "39.016249,-77.122993";
 
 public static void main(String[] args) {
     trustAllSSL();
+
     String key = args[0];
+
     RestTemplate tmpl = new RestTemplate();
-    List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+
+    List<HttpMessageConverter<?>> converters = 
+        new ArrayList<HttpMessageConverter<?>>();
     converters.add(new MappingJacksonHttpMessageConverter());
     tmpl.setMessageConverters(converters);
+
     PlaceResponse response = tmpl.getForObject(URL, PlaceResponse.class,
             LOCATION, key);
+
     System.out.println(response);
 }
 {% endhighlight %}
@@ -152,10 +159,10 @@ to the `pom.xml` so it could be run from the command line. Also, in order to get
 it to work, it's necessary to pass it a command-line parameter with your own 
 [Google API key][gapi].
 
-My original version used Ant with no dependency management, so I'm appreciative for
-[an example][maven] of WebMVC with Maven. For some reason the computer on which I ran
-the examples did not like the SSL certs from Google, so [this page][ssl] was a big help
-too.
+Some acknowledgements: my original version used Ant with no dependency
+management, so I'm appreciative for [an example][maven] of WebMVC with Maven.
+For some reason the computer on which I ran the examples did not like the SSL
+certs from Google, so [this page][ssl] was a big help too.
 
 [maven]:http://www.mkyong.com/maven/how-to-create-a-web-application-project-with-maven
 [ssl]:http://raymondhlee.wordpress.com/2012/07/28/using-spring-resttemplate-to-consume-restful-webservice
