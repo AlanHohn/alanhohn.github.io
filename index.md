@@ -1,5 +1,5 @@
 ---
 layout: home
-title: "Recent Posts"
+title: "Blog"
 tags: [blog]
 ---
