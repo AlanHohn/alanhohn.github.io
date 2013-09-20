@@ -1,7 +1,7 @@
 title:            Variegated
 tagline:          Mostly Java
 description:      A collection of articles on programming, without an overall theme if I can help it.
-url: http://blog.anvard.org
+#url: http://blog.anvard.org
 
 owner:
   name:           Alan Hohn
@@ -12,6 +12,10 @@ owner:
   googleplus:     100456883373179115381
 
 links:
+  - title: Articles
+    url: /articles
+  - title: Feed
+    url: /feed.xml
   - title: About
     url: /about
 
