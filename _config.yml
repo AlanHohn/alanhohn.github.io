@@ -23,7 +23,7 @@ timezone:    America/Chicago
 future:      true
 pygments:    true
 markdown:    kramdown
-exclude:     [new-post.sh]
+exclude:     [new-post]
 
 kramdown:
   auto_ids: true
