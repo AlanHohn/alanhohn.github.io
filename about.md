@@ -24,6 +24,27 @@ are my own and do not necessarily reflect the views of Lockheed Martin.
 
 [li]:http://www.linkedin.com/pub/alan-hohn/27/b35/5a3
 
+Please get in touch if you'd like to contact me.
+
+<form action="http://getsimpleform.com/messages?form_api_token=33f0ff67f59b82a2e1fc69b1e9367e44" method="post">
+  <input type='hidden' name='redirect_to' value='{{ site.url }}/thanks' />
+  <p>
+  Name:
+  <input type="text" name="Name" size="40" style="color: #000000; background-color: #ffffff" />
+  </p>
+  <p>
+  Reply Email:
+  <input type="text" name="Reply Email" size="40" style="color: #000000; background-color: #ffffff" />
+  </p>
+  <p>
+  Message:
+  <textarea name="message" rows="4" cols="40" style="vertical-align:top"></textarea>
+  </p>
+  <p>
+  <input type="submit" value="Contact" style="font-size: medium; background-color: #ffffff"/>
+  </p>
+</form>
+
 The blog is built on [GitHub Pages][ghp] and [Jekyll][].
 
 The theme is slightly modified from Cole Townsend's [Balzac theme][balzac].
