@@ -81,7 +81,7 @@ We keep the previous connector on port 9999 so we can support both HTTP
 and HTTP/S. Of course, we could force the use of HTTP/S by just removing
 the HTTP connector.
 
-The `HttpConfiguration` and `HttpConnectionFactory are essential to making
+The `HttpConfiguration` and `HttpConnectionFactory` are essential to making
 this work. The `SslConnectionFactory` handles only the SSL part of the job;
 it requires a regular HTTP configuration to hand off the decrypted request.
 
@@ -91,6 +91,9 @@ is being run from a JAR, WAR, or just classes on the disk. This lets us run
 equally well inside an IDE like Eclipse and in the production environment.
 It also avoids the extra install step of adding the server's certificate to
 the default Java keystore.
+
+With these changes, we can access the REST API equally well from
+`http://<host>:9999` and `https://<host>:9998`.
 
 [part1]:{% post_url 2013-09-16-webmvc-server-1 %}
 [part2]:{% post_url 2013-09-17-webmvc-server-2 %}
