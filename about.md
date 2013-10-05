@@ -19,7 +19,7 @@ and new approaches. My hope is that some of that material will be as useful
 to others as I've occasionally found it.
 
 More detailed career information is available on my [LinkedIn page][li]. I'm
-employed my Lockheed Martin Mission Systems and Training. All views on this site
+employed by Lockheed Martin Mission Systems and Training. All views on this site
 are my own and do not necessarily reflect the views of Lockheed Martin.
 
 [li]:http://www.linkedin.com/pub/alan-hohn/27/b35/5a3
