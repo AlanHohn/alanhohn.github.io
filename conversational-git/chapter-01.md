@@ -52,15 +52,23 @@ I'm calling this book "Conversational Git" both because I'm looking for a conver
 style and because, when learning a new language, a key goal is to be "conversational" --
 able to make basic small talk, even if not quite a native speaker.
 
+Because I wrote this book in a conversational style, it's verbose (like me!) and breezy.
+So I hope it's a quick read. I do include a bunch of git commands in here. If you choose
+to follow along running those commands, you'll need to be consistent because some
+later things are based on some earlier things. But I tried to write it in such a way
+that you can just "get" what the commands are doing from the context, so don't feel
+like you have to follow along to follow along, if you get my meaning.
+
 Why Not
 -------
 
-I'm not writing this book to argue against Subversion in favor of Git. Like I said, I used
-Subversion heavily for many years, and I still advocate for it when people are looking for
-version control tools. I also am not writing this book to refute people's complaints about
-Git. In fact, one of the reasons I wanted to write it is because of Steve Bennett's
-[10 things I hate about Git][bennett], because I agreed with him! Using Git is not pain-free;
-I just happen to think it's totally worth it.
+I'm not writing this book to argue against Subversion in favor of Git. Like I
+said, I've used Subversion heavily for many years, and I still advocate for it
+when people are looking for version control tools. I also am not writing this
+book to refute people's complaints about Git. In fact, one of the reasons I
+wanted to write it is because of Steve Bennett's [10 things I hate about
+Git][bennett], because I agreed with him! Using Git is not pain-free; I just
+happen to think it's totally worth it.
 
 [bennett]:http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/
 
@@ -74,6 +82,9 @@ this book to modify. If you make changes, you can send me a pull request so I
 can merge your changes into my version. That whole workflow is an essential part
 of why Git has become so popular for open-source projects, and a key purpose of this
 book is explaining that workflow and why it's so powerful.
+
+The book is written using Markdown and processed using Jekyll. Much love to both
+those technologies and to GitHub Pages.
 
 [dogfooded]:http://en.wikipedia.org/wiki/Eating_your_own_dog_food
 

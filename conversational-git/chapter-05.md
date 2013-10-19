@@ -6,6 +6,7 @@ title: "Chapter 5"
 description: "Constructive Conflict"
 header: "Chapter 5"
 previous: "04"
+next: "06"
 tags: []
 ---
 
