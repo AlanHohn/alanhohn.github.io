@@ -22,32 +22,32 @@ is how easy it is to branch. I've used version control systems where
 The way Subversion is architected internally, a branch is cheap because it's
 a shallow copy of the repository state at a point in time.
 
-At the same time, when using Subversion, we didn't really find ourselves
-branching all that much. For the most part, a branch came about when it was
-time for a release, and we didn't typically commit many changes on that branch
-afterwards. (I know, that sounds more like a tag, but (a) Subversion doesn't
-care about the difference in those terms; and (b) we did commit on the branch
-sometimes.)
+At the same time, on my last big project using Subversion, we didn't really
+find ourselves branching all that much. For the most part, a branch came about
+when it was time for a release, and we didn't typically commit many changes on
+that branch afterwards. (I know, that sounds more like a tag, but (a)
+Subversion doesn't care about "branch" versus "tag" semantic squabbles; and (b)
+we did commit on the branch sometimes.)
 
 I worked for a while on a project that used Subversion for something called
-"feature branches". The whole thing was based on a ticket system, and before
-you worked a ticket, you made a branch with that ticket number as the name,
-worked all your changes in there, and notified someone when you were done. It
-was good because the senior developers got to look over code changes and often
-had good suggestions for you to implement before they agreed to merge your change
-into the trunk. Peons like me didn't ever commit to trunk.
+"feature branches". The whole project was organized using a ticket system, and
+before you worked a ticket, you made a branch with that ticket number as the
+name, worked all your changes in there, and notified someone when you were
+done. It was good because the senior developers got to look over code changes
+and often had good suggestions for you to implement before they agreed to merge
+your change into the trunk. Peons like me didn't ever commit to trunk.
 
 Of course, I found a way to break it. I was working on a somewhat larger issue,
 and it took a little time to finish. By the time I got done, quite a bit of stuff
-had changed in trunk, and I wanted to make sure my files would merge cleanly. So
-I merged trunk into my branch, fixed some conflicts, and tested things out. Then
-I blithely submitted my ticket as ready for checkout. I don't know what the senior
-developer had to do to merge my changes back into trunk, but I know that I got
-told not to ever do that again.
+had changed in trunk, and I wanted to make sure my files would merge cleanly and
+work. So I merged trunk into my branch, fixed some conflicts, and tested things
+out. Then I blithely submitted my ticket as ready for checkout. I don't know
+what the senior developer had to do to merge my changes back into trunk, but I
+know that I got told not to ever do that again.
 
 What's interesting is that this happened years before I ever used Git for the first
 time, but for me it was the natural, obvious, "of course you do it that way"
-workflow. The system was built from trunk, and before you mess it up, you do
+workflow. Production came from trunk, so before you mess it up, you do
 everything you can to make sure your changes are good changes.
 
 This is the Git workflow! All the stuff about feature branches and pull requests is
@@ -55,7 +55,7 @@ all based on the idea that in software development, we group related changes int
 features and we work those features in parallel, either as a team or individually.
 Like I said before, in Git we want commits to be as small as possible, so we use
 branches to group related commits into a feature so they can land in a product all
-at once. This for me was the "aha" moment for using Git.
+at once. 
 
 One last Subversion note: even at the time, there was a way to do that merge and
 not break things the way I did. And later versions of Subversion add merge tracking
@@ -78,7 +78,7 @@ git checkout -b shakespeare
 It looks a little strange to use `git checkout` to make a new branch, but no stranger
 than using `svn copy`. I'm showing `git checkout -b` even though there is a `git branch`
 command that will do it, because `git branch` doesn't switch to the new branch,
-and when you're using feature branches you don't need the hassle of remembering to do it
+and when you're using feature branches you don't need the hassle of remembering to switch
 before you commit changes.
 
 Note that this command is a lot different from branching in Subversion using `svn copy`.
@@ -98,7 +98,8 @@ echo "But masters, remember that I am an ass" >> spear-01
 git commit -am "Dogberry"
 {% endhighight %}
 
-At this point `git log` will show those two new commits, in their feature branch.
+At this point `git log` will show those two new commits, because Harry is still working
+in the feature branch.
 
 Keeping Up To Date
 ------------------
@@ -127,13 +128,14 @@ git pull
 If you're following along, you'll see that Git reports this as a
 "fast-forward". No merge is taking place here. Also, you'll notice that `git
 log` does not show our two Shakespeare related commits in the log, and the new
-file is not in the working copy.
+`spear-01` file is not in the working copy.
 
 Merging a Feature
 -----------------
 
 Assuming Harry is done with Shakespeare for now, he'll merge those changes in from
-the feature branch.
+the feature branch. He's already in `master`, which is where he wants to be to
+merge in changes.
 
 {% highlight text %}
 git merge shakespeare
@@ -171,6 +173,8 @@ Even that basic capability is enough to change the way that a developer works
 when they're working multiple tasks at the same time (which of course is most
 of the time). A feature branch represents freedom from worrying about leaving
 the codebase in a broken state while you're implementing something complex or
-risky. The ability to make a feature branch while working disconnected is not
+risky. It also provides a quick way to context switch when you're working
+multiple things. These benefits of feature branches exist whether or not you're
+using Git, but the ability to make a feature branch while working disconnected is not
 something to be taken lightly.
 

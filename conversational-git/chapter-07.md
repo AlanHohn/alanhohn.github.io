@@ -109,7 +109,7 @@ Wrapping Up
 It's not immediately apparent, but Git did something a little clever here. In the
 last chapter, we merged a couple Harry Shakespeare commits. (Harry is Bill
 Shakespeare's direct patrilinear descendent, but don't ask him about it,
-because he won't shut up.)
+because then he won't shut up.)
 
 In this chapter, we used the same feature branch to make a couple new commits
 and then merged them. Because Git stores the parent of each commit, it can walk
@@ -119,6 +119,6 @@ which is good because it would find spurious "conflicts". (Before Subversion had
 merge tracking it was painfully easy to make it create those spurious conflicts.)
 
 We've still got at least one more chapter on feature branches, because we've
-been working again at the "happy path" where no one gets in another person's way.
+been working again with the "happy path" where no one gets in another person's way.
 We need to look at more realistic cases.
 

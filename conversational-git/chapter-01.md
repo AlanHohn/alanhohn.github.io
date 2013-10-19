@@ -15,9 +15,9 @@ Why This Book
 I recently had some very close friends talk about their hesitation in adopting Git as
 opposed to continuing to work with Subversion. I've used Subversion for many
 years, and advocated for its use. I have since jumped wholeheartedly on the
-Git bandwagon, so I wanted to find a way to show them why I made the switch and
-why I think so much of the open source community is now based around Git and
-Git-friendly sites like GitHub.
+Git bandwagon, so I wanted to find a way to tell the story of why I made the
+switch and why I think so much of the open source community is now based around
+Git and Git-friendly sites like GitHub.
 
 There's so much content out there about Git, and much of it is written at a level that's
 way higher than my expertise. But in a way, that's an issue. When you're first starting
@@ -48,27 +48,35 @@ in a way that followed real usage. I hope to present in a similar way.
 
 [svnbook]:http://svnbook.red-bean.com/
 
-I'm calling this book "Conversational Git" both because I'm looking for a conversational
+I'm calling this book "Conversational Git" both because I'm aiming for a conversational
 style and because, when learning a new language, a key goal is to be "conversational" --
 able to make basic small talk, even if not quite a native speaker.
 
 Because I wrote this book in a conversational style, it's verbose (like me!) and breezy.
-So I hope it's a quick read. I do include a bunch of git commands in here. If you choose
+So I hope it's a quick read. I do include a bunch of Git commands in here. If you choose
 to follow along running those commands, you'll need to be consistent because some
-later things are based on some earlier things. But I tried to write it in such a way
-that you can just "get" what the commands are doing from the context, so don't feel
-like you have to follow along to follow along, if you get my meaning.
+later things are based on some earlier things. However, when I read tutorials or books
+like this, I hate having to follow along typing commands, so I tried to write
+in such a way that you can just "get" what the commands are doing from the
+context. So don't feel like you have to follow along to follow along, if you
+get my meaning.
 
 Why Not
 -------
 
 I'm not writing this book to argue against Subversion in favor of Git. Like I
 said, I've used Subversion heavily for many years, and I still advocate for it
-when people are looking for version control tools. I also am not writing this
-book to refute people's complaints about Git. In fact, one of the reasons I
-wanted to write it is because of Steve Bennett's [10 things I hate about
-Git][bennett], because I agreed with him! Using Git is not pain-free; I just
-happen to think it's totally worth it.
+when people are looking for version control tools. Where I compare Subversion and
+Git, it's an attempt to discuss tradeoffs from the perspective of someone who
+likes both tools but tends to use Git by preference.
+
+I'm also not writing this book to advocate for Git versus Mercurial or Bazaar.
+I'm not qualified to write that book.
+
+Finally, I am not writing this book to refute people's complaints about Git. In
+fact, one of the reasons I wanted to write it is because of Steve Bennett's [10
+things I hate about Git][bennett], because I agree with him! Using Git is not
+pain-free; I just happen to think it's worth it.
 
 [bennett]:http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/
 

@@ -94,6 +94,13 @@ committing to one or the other of these new repositories (and even pull content
 between them directly). But to be more realistic, we'll pretend that `shared` is
 the single shared repository that both Harry and Isabelle can see.
 
+One other note: since I mentioned `git log`, which as expected shows history, I
+should also mention `git status`. For the following chapters, you won't see
+`git status` in the Git command stream because it would have broken up the flow
+of what I'm showing. That doesn't mean it's not important. It tells you all
+kinds of useful things, including what files you have that need to be committed
+and where you stand with respect to other repositories that you're talking to.
+
 Sharing Commits
 ---------------
 
