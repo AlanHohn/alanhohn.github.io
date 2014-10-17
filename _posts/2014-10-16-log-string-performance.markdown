@@ -92,12 +92,14 @@ The final method, `MultStringParams`, uses a feature that is available in
 the [SLF4J][] API. It works similarly to `String.format()`, but in a simple
 token replace fashion. Most importantly, it does not perform the token replace
 unless the logging level is enabled. This makes this form just as fast as the
-"check" forms, but in a more compact form. Of course, this only works if no
-special formatting is needed of the log string. What is especially surprising
-is that this method did not show a penalty in building the object array
-necessary to pass the parameters into the method. This may have been
-optimized out by the Java runtime since there was no chance of the parameters
-being used.
+"check" forms, but in a more compact form. 
+
+Of course, this only works if no special formatting is needed of the log 
+string, or if the formatting can be shifted to a method such as `toString()`. 
+What is especially surprising is that this method did not show a penalty 
+in building the object array necessary to pass the parameters into the method. 
+This may have been optimized out by the Java runtime since there was no 
+chance of the parameters being used.
 
 Conclusion
 ----------
