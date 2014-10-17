@@ -84,7 +84,7 @@ that even in the case where we do not use string concatenation (i.e. the
 time spent pushing the string parameter onto the stack.
 
 The examples with doubles, using `String.format()`, is even more extreme,
-four orders of magnitude. The elapsed time here about 4ms, large enough 
+four orders of magnitude. The elapsed time here about 4us, large enough 
 that if the log statement were in a commonly used method, the performance hit 
 would be noticeable. 
 
