@@ -6,6 +6,11 @@ category: articles
 tags: [java, spring, webmvc, rest]
 ---
 
+This is part 1 of 3. Also see [part2][p2] and [part3][p3].
+
+[p2]:{% post_url 2013-09-17-webmvc-server-2 %}
+[p3]:{% post_url 2013-09-18-webmvc-server-3 %}
+
 There are a lot of tutorials out there about providing REST web services
 in a servlet container by building and deploying a WAR. There are also
 cases where someone is looking to put a REST interface on an existing
