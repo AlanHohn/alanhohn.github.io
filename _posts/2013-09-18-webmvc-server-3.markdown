@@ -30,7 +30,7 @@ Embedded Server Class
 
 In the [webapp][] I have the following Java class:
 
-{% highlight java linenos %}
+{% highlight java %}
 package org.anvard.webmvc.server;
 
 import java.net.URL;

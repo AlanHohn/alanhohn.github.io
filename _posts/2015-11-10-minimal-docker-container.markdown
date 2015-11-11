@@ -31,7 +31,7 @@ Docker container.
 
 The Go application is basic:
 
-{% highlight go linenos %}
+{% highlight go %}
 package main
 
 import (

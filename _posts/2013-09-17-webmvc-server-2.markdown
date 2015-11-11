@@ -25,7 +25,7 @@ Controller class
 
 The Java code for the controller class is:
 
-{% highlight java linenos %}
+{% highlight java %}
 package org.anvard.webmvc.server;
 
 import org.anvard.webmvc.api.Calculation;

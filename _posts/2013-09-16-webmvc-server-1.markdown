@@ -113,7 +113,7 @@ which for REST interfaces mostly means converting to JSON or XML.
 
 Our controller Java class looks like this:
 
-{% highlight java linenos %}
+{% highlight java %}
 package org.anvard.webmvc.server;
 
 import org.anvard.webmvc.api.Calculation;

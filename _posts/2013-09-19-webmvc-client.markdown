@@ -67,7 +67,7 @@ library explicitly.
 
 The associated Java code is as follows:
 
-{% highlight java linenos %}
+{% highlight java %}
 package org.anvard.webmvc.client;
 
 import org.anvard.webmvc.api.Calculation;

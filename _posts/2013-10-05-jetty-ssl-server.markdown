@@ -54,7 +54,7 @@ of making it visible to a client browser, which may be undesirable.
 The required changes to our `EmbeddedServer` class are minimal. Jetty has a lot
 more options, but these are the set we need to make it happen.
 
-{% highlight java linenos %}
+{% highlight java %}
 Server server = new Server();
 
 ServerConnector connector = new ServerConnector(server);

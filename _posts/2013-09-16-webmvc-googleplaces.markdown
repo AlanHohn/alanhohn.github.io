@@ -32,7 +32,7 @@ Even though I'm using Spring WebMVC for the client, I decided not to use a Sprin
 application context for this example, because it's too simple for that. So the
 Java code just looks like this:
 
-{% highlight java lineno %}
+{% highlight java %}
 private static final String URL = 
   "https://maps.googleapis.com/maps/api/place/search/json?location={location}&radius=1000&types=food&sensor=false&key={key}";
 private static final String LOCATION = "39.016249,-77.122993";
@@ -93,7 +93,7 @@ servers is converted by Jackson into a `PlaceResponse` instance. The
 What's nice is that the classes are just POJOs, though the names are a little
 odd to match the JSON as this avoids some Jackson annotations.
 
-{% highlight java linenos %}
+{% highlight java %}
 package org.anvard.webmvc.googleplaces;
 
 import java.util.List;

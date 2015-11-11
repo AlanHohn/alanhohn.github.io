@@ -42,7 +42,7 @@ HTTP methods.
 Provider classes are plain old Java objects (POJOs), using annotations to specify
 JAX-RS parameters. Here is the provider class for this application.
 
-{% highlight java linenos %}
+{% highlight java %}
 @Path("/calculator")
 public class Calculator {
 
@@ -112,7 +112,7 @@ JAX-RS Application
 The JAX-RS application class allows, among other things, customizing which
 packages are scanned for providers.
 
-{% highlight java linenos %}
+{% highlight java %}
 public class CalculatorApp extends ResourceConfig {
 
     public CalculatorApp() {
