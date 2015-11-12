@@ -8,9 +8,11 @@ tags: [about]
 
 This is Variegated, the blog of Alan Hohn.
 
-I'm a software architect who primarily works with distributed Java, especially
-Java EE via JBoss. I've got a lot of experience re-architecting
-embedded systems and in combining embedded and enterprise approaches.
+I'm a software architect who primarily works with distributed Java.
+I've got a lot of experience re-architecting embedded systems and 
+in combining embedded and enterprise approaches. Lately I've been
+doing quite a bit of work with virtualization, DevOps and cloud
+technologies.
 
 Over the past several years, I've had the opportunity to teach some courses
 on Java, both introductory and advanced courses. That's meant writing quite a

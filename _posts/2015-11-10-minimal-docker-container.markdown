@@ -63,9 +63,9 @@ I used the following compile command:
 CGO_ENABLED=0 GOOS=linux go build -a -tags netgo -ldflags '-w' ...argserver
 {% endhighlight %}
 
-According to [this article][a] this form only works with Go 1.3 or older, but
+According to [this page][a] this form only works with Go 1.3 or older, but
 for me this command worked fine while running Go 1.5.1. 
-If you do have trouble, the linked article suggests using `installsuffix` to keep static versions 
+If you do have trouble, the linked page suggests using `installsuffix` to keep static versions 
 of components separate in newer versions of Go.
 
 With the `argserver` executable and a Dockerfile in the current directory, this command
