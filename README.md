@@ -3,7 +3,7 @@ alanhohn.github.io
 
 This is my blog Variegated, using [GitHub Pages][ghp] and [Jekyll][], hosted at [http://blog.anvard.org].
 
-The theme is slightly modified from Cole Townsend's [Balzac theme][http://jekyll.gtat.me/about/].
+The theme is slightly modified from Cole Townsend's [Balzac theme](http://jekyll.gtat.me/about/).
 My modifications are licensed [CC-BY][].
 
 All postings on my blog are also licensed [CC-BY][]. Code snippets on my blog may be used freely
