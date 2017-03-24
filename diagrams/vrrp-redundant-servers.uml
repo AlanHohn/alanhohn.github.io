@@ -1,0 +1,9 @@
+graph LR
+  SW(Switch ) -- VIP 1 --- R1(Router 1)
+  SW -- VIP 1 --- R2(Router 2)
+  WS1[Web Server 1] -- VIP 2 --- SW
+  WS2[Web Server 2] -- VIP 2 --- SW
+  EM1[Email Server 1] -- VIP 3 --- SW
+  EM2[Email Server 2] -- VIP 3 --- SW
+  R1 --- I((Internet))
+  R2 --- I

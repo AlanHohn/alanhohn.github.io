@@ -1,0 +1,9 @@
+graph LR
+  SW(Switch) --- R(Router)
+  AP{Access Point} --- SW
+  Laptop --- AP
+  Desktop --- SW
+  Tablet --- AP
+  Phone --- AP
+  R --- I((Internet))
+  

@@ -1,0 +1,9 @@
+graph LR
+  SW(Switch ) -- VIP 1 --- R1(Router 1)
+  SW -- VIP 1 --- R2(Router 2)
+  LB1[Load Balance Server 1] -- VIP 2 --- SW
+  LB2[Load Balance Server 2] -- VIP 2 --- SW
+  WS1[Web Server 1] --- SW
+  WS2[Web Server n] --- SW
+  R1 --- I((Internet))
+  R2 --- I

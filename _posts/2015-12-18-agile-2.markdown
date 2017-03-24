@@ -1,0 +1,139 @@
+---
+layout: post
+title: "Agile in the Defense Industry: Organizing Teams"
+description: ""
+category: articles
+tags: []
+---
+
+This article is the second in a series on how agile is
+being adopted in the U.S. defense industry. The [first
+article][first] discussed challenges specific to using
+agile in the defense industry, and why it is being adopted.
+
+For any effort that uses the agile methodology, deciding "who is on the team"
+is a key step. The [agile manifesto][manif] prioritizes individuals and
+interactions; for most users of agile, those interactions occur within a team.
+For example, the [Scrum Framework][scrum] is built around the idea of a
+"Development Team", which is limited to only those people who perform work on
+the product, and a "Scrum Team", which includes the Development Team plus the
+"Scrum Master", someone who represents (not manages) the team and removes
+roadblocks, and the "Product Owner", a single person who helps the team
+understand the purpose and value of the work the team is doing.
+
+Within the U.S. defense industry, team-based development is widely used with
+agile, but there are a couple key challenges that lead to compromises.
+First, while in any team there will be a mix of skills and
+expertise, in defense programs there is a wide range of different engineering
+disciplines involved. On an aircraft program, there are engineers who are
+expert in aerodynamics, aircraft structure, power systems, equipment cooling,
+antenna placement on the outside of the aircraft (to avoid having antennas
+interfere with one another), electrical generation, and many others. There are
+also systems engineers who have responsibility for ensuring the pieces will
+come together as expected, and hardware engineers who identify off-the-shelf
+hardware that meets aircraft specifications, or perform custom hardware design.
+Within software engineering there are distinct skills for developers who create
+embedded real-time safety-critical software, those who create software for the
+mission system, and those who handle signal processing or communications
+systems. While every form of software development has its separations (e.g.
+"full stack" versus UI, service, and database developers), the distinctions in
+the defense industry are sharper because of the constraints on each type of
+software driven by hardware or certification requirements.
+
+One reason for organizing into teams is the desire to build shared purpose and
+a shared desire for quality. It is important, to create that shared purpose,
+that the development team consist only of people who are responsible for the
+work, and who can understand and appreciate the work that each person brings to the
+team. Ideally, to work most effectively as a team, there should be significant skill overlap in
+the agile team so that team members can pick up some of the work when another team member
+is overloaded; otherwise, teams can be stuck waiting on one person, which is bad for efficiency
+and leads to dissatisfaction both for the people who are waiting and the person who is
+overloaded. So there is a difficult decision to make in terms of how "cross-functional" a 
+team should be. On the one hand, a cross-functional team is less likely to have errors
+caused by failure of communication between engineering disciplines. On the other hand, a
+cross-functional team is probably less able to redistribute the workload to keep everyone
+busy.
+
+A second challenge to agile team organization in the U.S. defense industry is
+that, while there are many smaller defense programs, it is common to have
+programs with dozens or hundreds of engineers working in parallel on the same
+system. There is a natural limit to the size of a team; as [Fred
+Brooks][brooks] pointed out in the [Mythical Man-Month][mmm], increasing the
+size of the team increases the number of interactions that must occur for
+progress to continue; eventually this becomes counter-productive. In the
+Scrum Framework, a maximum size of 9 people is recommended.
+
+This means that within the defense industry, most programs consist of multiple
+teams that must then coordinate in order to get the entire system built. A
+["Scrum of Scrums"][sos] is often used as a way to get people from different
+teams together to discuss the whole system. The [Scaled Agile Framework
+(SAFe)][safe] creates more structure around the teams, including explicit roles
+for a system team and for architects. Either way, of course, there is still
+much less interaction between teams than there is inside teams.
+
+There is an intersection between these two challenges: if it is necessary to
+divide up into multiple teams, should these teams be divided up by discipline
+(e.g. one or more teams of software engineers, one or more teams of hardware
+engineers), or by system function (e.g. one cross-functional team for the
+avionics, one for off-board communications)? Both approaches are used, but
+my sense (not backed by data) is that discipline teams are currently more prevalent.
+I believe there are a few reasons for this. First, it is difficult to create
+a close-working team when the work that each person is doing is quite different.
+Second, while ideally we would like to be able to work iteratively, there is a
+natural ordering to the work, as I discussed in the [previous article][first]. For example,
+the software team needs devices to be selected before work on device drivers can
+begin. So often different engineering disciplines are needed on a program at different
+times, making a single cross-functional team difficult to maintain. Third, in my
+experience software engineers are more likely to advocate agile methodologies, and in
+some organizations there is resistance to agile outside of software. In some cases this
+means that "software is doing agile" but other disciplines are using their traditional
+approaches. This works about as well as you would expect, but deserves its own article.
+
+The key takeaway here is that while some programs in the defense industry keep their
+single-discipline teams under agile because of different rates of agile adoption, there
+are other, better reasons to keep single discipline teams. At the same time, I have
+seen the cross-functional team approach be successful. Without cross-functional teams,
+engineers have to commit more of their work to paper so that they can
+communicate it to other teams. This appears "better" to evaluators of the
+engineering process, because there is a feeling that the system is
+"well-documented" and therefore "well-engineered". However, this can be false
+quality, because the documents can be interpreted different ways, can become
+obsolete, or can be in conflict with each other. These kinds of documentation
+issues generally only become obvious in retrospect. Also, with
+single-discipline teams, there tends to be a great deal more up-front planning
+(e.g.  requirements analysis, interface design), which can make the system less
+able to respond to inevitable changes in requirements or to discovery during
+implementation. With aircraft development, this often manifests as weight
+issues, because new functionality is being added to the aircraft, but it is
+very difficult to go back and remove or rework existing design decisions.
+
+So how to balance these competing priorities? One approach I have seen work well is similar
+to the idea of the "Scrum of Scrums", but uses a "peer-to-peer" approach rather than a
+"reporting up" approach. The teams are organized mostly according to disciplines, so that
+within a team, work can be shared equally. In addition to their regular team role, each
+person also has a role as "liaison" to another team wherever there is an inter-dependency
+between teams. Within software, this might mean that one person on the user interface team
+is a liaison to the database team. The idea is to spread this responsibility out across the
+members of the team, both to balance the workload and to ensure that all members of the team
+see it as their responsibility to stay current on what other teams are doing. Where possible,
+the liaison attends any daily meetings of the other team, and of course serves as the first
+point of contact when questions arise.
+
+Of course, responding to change is also a key value in agile, so this approach is not
+one-size-fits-all. Often, programs find their most productive organization by working
+iteratively to fix communication and efficiency issues, so that the right team structure
+develops as the program moves forward. The most important thing is to keep in mind the
+advantages and disadvantages of different ways of organizing large cross-functional teams,
+so that when problems show up, the cause is understood and they can be fixed.
+
+Next time, I will discuss how iterative development using agile intersects with the
+traditional mentality of "milestone reviews", and what teams are doing to be more flexible.
+
+[first]:https://dzone.com/articles/agile-in-the-us-defense-industry-part-1
+[manif]:http://agilemanifesto.org/
+[scrum]:http://www.scrumguides.org/
+[brooks]:https://www.cs.unc.edu/~brooks/
+[mmm]:https://en.wikipedia.org/wiki/The_Mythical_Man-Month
+[sos]:http://guide.agilealliance.org/guide/scrumofscrums.html
+[safe]:http://www.scaledagileframework.com/
+

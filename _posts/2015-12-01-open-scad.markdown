@@ -1,0 +1,168 @@
+---
+layout: post
+title: "Models for 3D Printing with OpenSCAD"
+description: ""
+category: articles
+tags: []
+---
+
+Like many others, I have recently acquired the hobby of maintaining and using a
+3D printer (in my case from [Printrbot][pb]). I was initially impressed with
+the wide array of models available from various sites, but that feeling wore
+off quickly. Being restricted to models made by others feels more like observer
+status rather than a real participant.
+
+I spent a little time with [SketchUp][su], but I'm a programmer, not an artist.
+Unfortunately, it's been 20 years since I did any substantial work in CAD.
+Fortunately, there's [OpenSCAD][os], a tool designed for programmers. OpenSCAD
+builds 3D models from a programming language description. Functions with parameters
+allow creation of 3D objects and "extrusion" of 2D outlines (applying a transformation
+to bring a 2D outline into three dimensions). For example, a simple sphere:
+
+```openscad
+// radius=2, fragment angle=5, fragment size=0.1
+sphere(2, $fa=5, $fs=0.1); 
+```
+
+Quickly produces a model:
+
+<img src="/post-images/openscad-sphere.png" style="max-width:100%;max-height:250px;"/>
+
+More complicated models use C-style blocks with curly braces to apply set
+transformations and groupings to objects. For new users of OpenSCAD like me,
+the programming language is quite daunting. Fortunately, the Edit-Compile-Test
+loop is very quick, since you can make a small change and immediately see
+results in the tool.
+
+Of course, this kind of thing is a lot more fun with a real example. So I was
+almost happy to find that I lost a small plastic part needed to securely hold a
+patio umbrella in its base. A chance to try out modeling skills and make something
+real! I started with measurements. The piece has to hold the umbrella securely,
+so the pole forms an inner diameter. The piece then has to fit into the base, so
+that forms one outer diameter, but it also needs a wider lip to keep it from
+slipping too far inside the base. Also, it needs to be deep enough to prevent the
+umbrella from moving around once it is installed.
+
+I started with a simple cylinder that represents the solid part of the holder
+that fits into the base.
+
+```openscad
+cylinder(r=25.5, h=45, $fa=1);
+```
+
+Next, I added the wider "lip". For the lip the size was somewhat arbitrary.
+
+```openscad
+cylinder(r=32.5, h=5, $fa=1);
+cylinder(r=25.5, h=45, $fa=1);
+```
+
+So far we haven't moved from the origin, so these two cylinders are rendered
+into exactly the same space. So they overlap a lot. This is OK because
+we are looking for a single solid piece. However, keeping in mind that we are
+going to export this to an STL and then "slice" it so it can be built up by
+a 3D printer one layer at a time, it is better if we explicitly combine the
+shapes. In OpenSCAD we use "union" to do this:
+
+```openscad
+union() {
+    cylinder(r=32.5, h=5, $fa=1);
+    cylinder(r=25.5, h=45, $fa=1);
+}
+```
+
+So far the model looks like this:
+
+<img src="/post-images/openscad-model1.png" style="max-width:100%;max-height:250px;"/>
+
+We now need to add the hole in the middle. We do this by subtracting out
+another cylinder using "difference()". This is another reason we needed to
+do a "union", since we want to subtract out the middle of *both* cylinders.
+
+```openscad
+difference() {
+    union() {
+        cylinder(r=32.5, h=5, $fa=1);
+        cylinder(r=25.5, h=45, $fa=1);
+    }
+    cylinder(r=19, h=height, $fa=1);
+}
+```
+
+The results are not exactly as desired:
+
+<img src="/post-images/openscad-model2.png" style="max-width:100%;max-height:250px;"/>
+
+The strange stuff in the middle indicates that we are not subtracting out the whole
+shape like we want. If we export this to STL and slice it, we may have issues
+with the slicing or the printer may attempt to put material there.
+
+Instead, we want to extend our "negative" cylinder that we are using to subtract out
+the center so that it goes past both ends of the solid shape in the middle. To do this,
+we need to start the negative cylinder a little below the origin and extend it a little
+above. So we need a translation:
+
+```openscad
+difference() {
+    union() {
+        cylinder(r=32.5, h=5, $fa=1);
+        cylinder(r=25.5, h=45, $fa=1);
+    }
+    translate([0, 0, -5])
+    #cylinder(r=19, h=55, $fa=1);
+}
+```
+
+The results are much better:
+
+<img src="/post-images/openscad-model3.png" style="max-width:100%;max-height:250px;"/>
+
+For this image I adjusted the view a little to show the cylinder extending above
+and below. I also used a nice debug feature -- by adding a hash `#` to the front
+of the object, we cause OpenSCAD to draw it in a translucent red color so we can
+see it. Otherwise it would be transparent since it is subtracted from the rest 
+of the shape.
+
+Up until now OpenSCAD looked very similar to a general-purpose language. Even the
+use of "union" and "difference" looks like passing a code block to a function.
+That's a good analogy, but it's not perfect. First, notice that within the
+"difference" block the order of the child nodes is important -- the second is
+subtracted from the first. Second, notice that the "translate" is not a complete
+statement. That makes sense because its operation is applied to the cylinder that
+comes after it, but the syntax is a little different from the method chaining that
+would be used in a general-purpose language. Finally, the use of a prefix symbol
+like `#` only really works in a special-purpose language, because the grammar is
+simple enough that the parser doesn't get confused.
+
+To complete this model, we can break out the numeric values so they can be easily
+changed and aren't repeated. My final file looked like this:
+
+```openscad
+center = 19;
+inner = 25.5;
+outer = 32.5;
+
+lip_height = 5;
+height = 45;
+
+difference() {
+    union() {
+        cylinder(r=outer, h=lip_height, $fa=1);
+        cylinder(r=inner, h=height, $fa=1);
+    }
+    translate([0, 0, -5])
+    cylinder(r=center, h=height+10, $fa=1);
+}
+```
+
+And the final model, exported to STL and loaded into [Cura][], looks like:
+
+<img src="/post-images/openscad-model.png" style="max-width:100%;max-height:250px;"/>
+
+Ready to slice and print, and a few hours later I have the thing in my hands.
+
+[pb]:http://printrbot.com/
+[su]:http://www.sketchup.com/
+[os]:http://www.openscad.org/
+[Cura]:https://ultimaker.com/en/products/cura-software
+

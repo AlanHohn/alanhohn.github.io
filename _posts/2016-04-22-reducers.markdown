@@ -1,0 +1,112 @@
+---
+layout: post
+title: "Reducers: Workhorses of Parallel Programming"
+description: ""
+category: articles
+tags: []
+---
+
+Like jelly in the [PB&J][pb], or Art in [Simon and Garfunkel][sg],
+the reducer gets second [billing][bl] in the term [MapReduce][mr].
+But it really is the more mathematicaly interesting function of
+the two, as I hope to demonstrate.
+
+The secret to big data is of course the ability to do work in parallel.
+Modern Big Data engines like Hadoop don't rely on the invention of
+clever new algorithms or artificial intelligence to produce impressive
+results; instead, they are based on the idea of taking lots of input,
+working on little pieces of it in lots of places at the same time,
+then bringing together the results. Usually, the results are much
+smaller than the inputs, small enough that human beings can look at
+them directly.
+
+## Parallel
+
+In order to work on lots of small pieces at the same time, whatever
+task we're performing has to be structured to be run in parallel.
+Many algorithms we're used to seeing work well sequentially have to
+be tweaked at least a little to work in parallel, and some have to
+be discarded as unusable in parallel. For example, some cryptographic
+hash functions cannot be made to run in parallel, which makes sense
+because a good cryptographic hash function is one in which the output
+changes in unpredictable ways if the input has a small change anywhere.
+
+On the other hand, a problem where a parallel algorithm is obvious
+gets the name "embarassingly parallel". Generally this means that the
+relationship of the input to the output obviously maintains independence
+of each piece. For example, doubling every number in a long array of
+integers is embarrassingly parallel because it's easy to see that it
+can be broken into pieces.
+
+## Mappers
+
+The epiphany behind MapReduce is the fact that many problems (such as
+search engines) can be broken into two pieces. In the map phase,
+we just look at each data item in parallel and perform some operation
+specific to it only. (In practice we group items together. Hadoop calls
+this a split. But it's solely for optimization, not for math reasons.)
+In the reduce phase, we combine the output of the mappers to produce the
+final output. (Hadoop has another phase it calls a "combiner", but this
+is just a reducer for the mappers on a single machine, to save network
+traffic. Again, just for optimization.)
+
+Most map algorithms are embarassingly parallel. In Hadoop's word count
+example, the input text file is tokenized into individual words. The map
+phase takes the word in and puts out a pair (a simple two valued object)
+with the word and the number 1. All of the actual counting is done in
+the reducer. With a search, the map phase might just calculate a score
+for a particular document given the search terms, while the reducer would
+do the hard work of putting the results in order.
+
+## Reducer
+
+So the reducer is where the math gets more interesting. We absolutely have to
+find a way to run our reducer in parallel. Otherwise, the ability to run
+the mapper in parallel would be wasted, and our total run time would be no
+better than just running a sequential algorithm. But the reducer is pretty
+clearly going to operate across lots of data. For the word count example, it
+might not seem so bad, because we could have a separate reducer for each
+unique word in the text. That is likely to be more reducers than we could
+reasonably create given the overhead of creating a new one, so we would expect
+to be able to optimize to get the best speedup.
+
+However, what about our text search, that needs to find the "top 10", or
+an example where we want to sum all of the numbers in a long list of integers,
+rather than just operate on each of them?
+
+For these examples, we can see pretty clearly that there is a parallel way to
+handle them. For the top 10, let each reducer find its top 10 for its small piece
+of data, then find the "top of the top". You can even add intermediate steps to
+that if you need to, so in [Big O Notation][bigo] we would say it is `O(log n)`.
+For the sum of all numbers, each reducer can sum its own small group, then we
+can add the sums together. Again, this is `O(log n)`.
+
+While this is great for those specific examples, it would be nice if we had
+a general rule for knowing when we can expect our reducer to work in parallel.
+It's not quite as simple as the mapper, because we're never going to have
+independence between the parallel steps. But there is a concept we can bring to
+bear.
+
+## Associativity
+
+The associative property is (still) taught in elementary-level math. It's the
+idea that, for some operations, the order in which you apply them doesn't matter.
+Addition is of course associative, as `(4 + 5) + 3 = 4 + (5 + 3)`. It turns out
+that if we can write a function that is associative, then we can make a parallel
+reducer out of it. This is why our ranking example above works, because the
+function `max()` is associative: `max(max(a, b), c) == max(a, max(b, c)`.
+
+(Side note: this is assuming that items can't have identical rank, or that we 
+don't care if identically ranked items have the same order.)
+
+As it turns out, even this is a little strict, because there are tricks we can
+play with our reducer in cases where it is not quite all the way associative
+(i.e. it is "semiassociative"). This topic deserves its own full post, since it
+needs a more detailed example, so I'll save it for next time.
+
+[pb]:https://en.wikipedia.org/wiki/Peanut_butter_and_jelly_sandwich
+[sg]:https://en.wikipedia.org/wiki/Simon_%26_Garfunkel
+[bl]:https://en.wikipedia.org/wiki/Billing_(filmmaking)
+[mr]:https://en.wikipedia.org/wiki/MapReduce
+[bigo]:https://en.wikipedia.org/wiki/Big_O_notation
+

@@ -1,0 +1,153 @@
+---
+layout: post
+title: "Agile in the U.S. Defense Industry, Part 1"
+description: ""
+category: articles
+tags: []
+---
+
+*tldr*The U.S. defense industry is the inventor of numerous software
+processes and even a programming language. This series discusses the
+challenges to using agile in the U.S. defense industry and some ways
+agile has had an impact.*/tldr*
+
+## Introduction
+
+I was having a conversation with some of DZone's [Zone Leaders][zl] and
+the topic turned to how agile is used by defense contractors, especially
+in the United States. [Allen Coin][ac], with his eye out for
+interesting articles, was nice enough to suggest I try writing out some
+of those experiences and my thoughts.
+
+First, the necessary disclaimer. I work for Lockheed Martin, but everything
+I write is my own opinion, on my own time, and does not represent the views
+of Lockheed Martin or anyone else who works with me.
+
+If we played a word association game, most people would probably not say
+"agile" in response to either "big company" or "defense industry". The U.S. defense
+industry gets high marks for being on the cutting edge of technology, but
+there is also a reputation for multi-year contracts, lots of approvals required
+for decisions, and long lead times before new systems get all the way
+to deployment.
+
+And yet, the U.S. Department of Defense is [taking agile very seriously][dod].
+In the linked presentation is a quote that says, "[s]oftware development agility
+is a key contributor to Program success."
+
+In this first article, I want to discuss some of the reasons large programs
+in the defense industry are set up the way they are, and then introduce why
+agile is embraced in that environment. In future posts, I will go into more
+detail on some individual challenges.
+
+## Traditional Large Programs
+
+For years, the defense industry relied on [DOD-STD-2167A][2167], the guidebook
+for software development for military applications. (Even though 2167A was
+superceded by MIL-STD-498 and eventually IEEE 12207, many of us in the
+industry still think in terms of "2167A development".) That standard
+has informed software development in many different ways, including the idea of
+software requirements analysis (identifying "what" the software must do), a
+separation between architectural and detailed design ("how" the software will
+meet the requirements), implementation, and various levels of test starting
+with unit test and proceeding out to a full system qualification test before
+heading to the field for operational testing.
+
+When described this way, it immediately seems like a waterfall process, and of
+course waterfall is considered stereotypical. But it is interesting to note
+that I have never been on a pure waterfall program; every program I have ever
+been on has had some form of incremental development, with each increment
+progressing at least to integration and test, and many even deployed to end
+users.
+
+Also, within agile, we perform many of the same activities, and in the
+same order. We figure out what the software must do before making it happen
+(how could it be the other way around?) and we run our unit tests more frequently
+and over smaller changes than our integration tests. Some activities in
+engineering are logically prior to others.
+
+So the chief point of difference between agile and "traditional" methods of
+software development is the size of the increments. If we are identifying
+requirements (user stories) a few at a time, it is sufficient to write them
+informally, because the developer can ask the product owner what is meant,
+the product owner will remember, and once they agree that the software does
+what it must, the user story is complete. On the other hand, if we write many
+requirements at once, we must record them formally, drive out ambiguity, and
+keep them around in a document so we can be sure we implement them all and then
+test them all. It is likely that the project team will change composition
+during that time, so we cannot rely on anyone's memory as to what a requirement
+"meant"; everything must be documented enough to reduce risk. This is how we
+get into the "contract negotiation" mode mentioned in the agile manifesto.
+
+## Two Challenges To Agile
+
+Of course, every time we create a proposal, we include hours for all of this
+documentation effort, so we know how much it costs to develop systems this way.
+There are two important reasons why big documentation is considered a necessary
+evil anyway. First, in the defense industry it really is *very* expensive to fix
+issues once they are in operational testing or production. Flying someone like
+me to a customer location or integration facility is expensive in time and
+living expenses. Even fixing problems in an integration lab is expensive, as
+lab resources are all too scarce (often multiple shifts). It is less expensive
+to change a document.
+
+The second reason is related. One of the worst things that can befall a big
+program is to produce something that passes tests but does not fulfill the
+mission. To prevent this, we carefully trace the software and hardware
+implementation back to design elements, trace design elements back to
+requirements, and trace requirements back to a concept of operations. Then we
+feel confident that the system, when complete, will meet its initial concept, driven
+by the missions it needs to perform. This also drives the decision to have
+formal document delivery, formal reviews, and change control.  In a big and
+complex system, a change in one part of the system can have broad-reaching
+impacts; at worst it can lead to a failure of the system in operational
+evaluation.
+
+## Two Reasons For Agile
+
+So if there are strong reasons to have extensive formal testing and extensive
+documentation with reviews, why are so many in the defense industry embracing agile?
+For me there are two main reasons. First, I have worked with many exceptional
+engineers, in systems, aircraft, hardware, software, and test disciplines. On
+all those programs, I have yet to see a system where it was possible get it
+perfect on paper before building it. It is impossible to completely
+characterize the behavior of a system from the paper description, or from a
+model. The reason is simple and is rooted in information theory: to be a
+completely faithful representation of the system, the model would have to be at
+least as complex as the system it is trying to model. In which case, you just
+built the system. 
+
+Even formal proofs of "correctness" using a model prove correctness on a
+limited number of axes, subject to assumptions inherent in the model (for
+example, the assumption that separate meteor strikes will not hit both the
+primary and the backup computer simultaneously).
+
+So there is always discovery later in the engineering lifecycle than we would like.
+Second, there always are requirements changes as the program moves along. Sometimes
+they are customer driven, as the customer refines their planned use of the
+system, or responds to new opportunities or threats. Sometimes they are driven
+by obsolescence, or by the need to upgrade security. If change from within
+(discovery) and change from without (requirements changes) are inevitable, it
+seems logical to me to use a methodology with change built in. Why not have a
+set of practices that matches what we actually do, rather than treating change as
+an exceptional condition?
+
+Additionally, the security we feel we get from formal reviews and testing is 
+not as complete as we hope. It has value; I have seen many times where an
+experienced reviewer has caught a major architectural issue early enough to fix it,
+and seen many times where an experienced tester has broken a system with ease in the
+lab, saving more expensive debug later. But I have also seen many times where
+hundreds of pages of documents are skimmed because no one has the time to
+review them in detail. There is value in taking things in small pieces just in
+the improvement to our ability to concentrate on one thing at a time.
+
+## Future Topics
+
+In future articles, I intend to discuss a variety of ways agile has affected the U.S.
+defense industry, including team composition, planning, continuous integration, and
+software change control.
+
+[zl]:https://dzone.com/pages/zoneleader
+[ac]:https://dzone.com/users/1059807/acoin.html
+[dod]:http://www.acq.osd.mil/se/briefs/2013_11_21-AFEI-Agile-Summit-Welby-Final.pdf
+[2167]:https://en.wikipedia.org/wiki/DOD-STD-2167A
+

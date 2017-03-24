@@ -1,0 +1,107 @@
+---
+layout: post
+title: "Docker X11 Client Via SSH"
+description: ""
+category: articles
+tags: []
+---
+
+*tldr* Running a GUI program in Docker takes a little work.  So does running a
+GUI program using SSH X11 forwarding.  Putting the two together is the most fun
+of all. */tldr*
+
+Docker is an interesting technology to work with, because sometimes it feels
+like just regular coding, and sometimes it feels like typing with oven mitts
+on. Today was an oven mitt day.
+
+The goal was to get a GUI program to run, in Docker, with the X server on
+the other side of an SSH tunnel. First step, to remove as many variables as
+possible, was to make a Docker container with a basic X11 client application
+for testing. I did a little searching on [Docker Hub][dh], but didn't
+immediately find what I wanted. But it's more fun to make one anyway.
+
+[dh]:https://hub.docker.com/
+
+This Dockerfile will do the trick:
+
+```dockerfile 
+FROM centos
+RUN yum install -y xeyes
+CMD ["/usr/bin/xeyes"]
+```
+
+We can then run `docker build -t xeyes .` from the directory with the
+`Dockerfile` and have an image we can run with `docker run xeyes`. Of
+course, it isn't quite that simple, because `xeyes` inside the container
+won't be able to see our X server. For starters, we need to pass our
+`DISPLAY` environment variable through to the container: 
+`docker run --env="DISPLAY" xeyes`. However, this still won't work
+because `xeyes` won't be able to connect to the X server.
+
+Normally, to allow the client to connect to the X server
+would mean mapping the local [UNIX domain socket][uds] into the
+Docker container using the `--volume` argument.  However, in this case the X
+server was on the other side of an SSH tunnel from the machine running the
+Docker container. With SSH X11 forwarding, instead of a UNIX domain socket,
+clients communicate with a TCP/IP socket on port `6000+(display number)`.
+Usually the ports start at 6010, which corresponds with a `DISPLAY` environment
+variable of `localhost:10.0`.
+
+[uds]:https://en.wikipedia.org/wiki/Unix_domain_socket
+
+The port is opened on the remote machine by the SSH daemon on behalf of the
+SSH client. All traffic is forwarded through the SSH connection, where the SSH
+client sends it on to whatever X server is configured.
+
+So we need our Docker container to connect to port 6010 on the host. Usually
+processes in a Docker container "just work" as a network client; for example,
+running `yum` in a CentOS container, like we did in the `Dockerfile` above,
+works just fine. This works because Docker creates a "bridge" interface and
+handles routing all outgoing traffic to the right address. 
+
+However, in this case, the SSH daemon only binds its port to the `lo` interface
+on the host. In bridge mode, the `lo` interface inside the container is different
+from the `lo` interface on the host. So the bound port isn't visible from inside
+the container.
+
+Fortunately, Docker has a "host" network mode, where it allows the container to
+see the same network stack that the host uses. As long as network isolation isn't
+a necessity, this works quite well. Our Docker run command is now:
+
+```text 
+docker run --net=host --env="DISPLAY" --rm xeyes 
+```
+
+Here I got a little stuck. The error message was still `Error: Can't open display`,
+just as when I was using bridge mode. Time to create an interactive session so we
+can do a little debug:
+
+```text 
+docker run -it --net=host --env="DISPLAY" --rm xeyes /bin/bash
+```
+
+By using `ss -an` inside the container we can see that something is listening on
+port 6010. (This is CentOS 7, so the old standby `netstat` is no longer there by 
+default.) So why can't it open the display? I next installed `nc` inside the
+container, and used that great little program to confirm that I could connect to
+`localhost:6010`. Out of an excess of paranoia, I ran `sudo tcpdump -nS -i lo port 6010`
+on the host, and sure enough I could see X11 traffic briefly over that port when
+running `xeyes` inside the interactive container.
+
+That was when I realized that the issue must be X11 authentication. I had discounted
+this possibility out of a misguided belief that X11 authentication issues led to
+different error messages.
+
+There are a few ways to pass X11 authentication through to the container; my belief
+is that the easiest is to give the container access to the `.Xauthority` file. The
+file needs to wind up in `/root` since that is the default user running processes
+inside the container. So one more change to the run script:
+
+```text 
+docker run --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" xeyes 
+```
+
+And it finally worked. Of course I was a little irritated that the issue ended up being
+an "Introduction to Remote X11" issue. But along the way, I picked up a few tools to
+help debug these kinds of issues, so it wasn't a complete waste of time.
+

@@ -1,0 +1,20 @@
+graph LR
+  R1(Router 1)
+  R2(Router 2)
+  LB1[Load Balance Server 1]
+  LB2[Load Balance Server 2]
+  WS1[Web Server 1]
+  WS2[Web Server 2]
+  LB1 --- R1
+  LB1 --- R2
+  LB2 --- R1
+  LB2 --- R2
+  
+  WS1 -- LB1 --- LB1
+  WS1 -- LB2 --- LB2
+  WS2 -- LB1 --- LB1
+  WS2 -- LB2 --- LB2
+
+  R1 --- I((Internet))
+  R2 --- I
+  
