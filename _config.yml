@@ -6,9 +6,9 @@ url: http://blog.anvard.org
 owner:
   name:           Alan Hohn
   avatar:         avatar.png
-  bio:            "Software Architect at Lockheed Martin"
+  bio:            "Lockheed Martin Fellow"
   linkedin:       pub/alan-hohn/27/b35/5a3
-  github:         alanhohn       
+  github:         alanhohn
   googleplus:     "+AlanHohn"
 
 links:
@@ -21,21 +21,20 @@ links:
 
 timezone:    America/Chicago
 future:      true
-pygments:    true
+highlights:  true
 markdown:    kramdown
-exclude:     [new-post]
+exclude:     [new-post, backup-files]
 
 kramdown:
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
-  use_coderay: false
+  enable_coderay: false
 
-  coderay:
-    coderay_line_numbers: 
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
-
+  syntax_highlighter_opts:
+    line_numbers:
+    line_numbers_start: 1
+    tab_width: 4
+    bold_every: 10
+    css: class
