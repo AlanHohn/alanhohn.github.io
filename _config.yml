@@ -19,7 +19,7 @@ links:
   - title: About
     url: /about
 
-timezone:    America/Chicago
+timezone:    America/New_York
 future:      true
 highlights:  true
 markdown:    kramdown
