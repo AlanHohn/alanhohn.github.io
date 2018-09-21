@@ -21,7 +21,7 @@ approaches. My hope is that some of that material will be as useful to others
 as I've occasionally found it.
 
 I'm the author of [Hands-On Infrastructure Automation with Ansible][ansvid]
-and [Hands-On DevOps with Ansible](ansdev), video courses from Packt
+and [Hands-On DevOps with Ansible][ansdev], video courses from Packt
 Publishing that teach Ansible using real-world examples. I invite you to
 check them out.
 
