@@ -20,11 +20,13 @@ role and interest also mean I frequently try out new libraries and new
 approaches. My hope is that some of that material will be as useful to others
 as I've occasionally found it.
 
-I'm the author of [Hands-On Infrastructure Automation with Ansible][ansvid],
-a video course from Packt Publishing that teaches Ansible using real-world
-examples. I invite you to check it out.
+I'm the author of [Hands-On Infrastructure Automation with Ansible][ansvid]
+and [Hands-On DevOps with Ansible](ansdev), video courses from Packt
+Publishing that teach Ansible using real-world examples. I invite you to
+check them out.
 
 [ansvid]:https://www.packtpub.com/application-development/hands-infrastructure-automation-ansible-video
+[ansdev]:https://www.packtpub.com/virtualization-and-cloud/hands-devops-ansible-video
 
 Career information is available on my [LinkedIn page][li]. I'm
 employed by Lockheed Martin Rotary and Mission Systems. All views on this site
